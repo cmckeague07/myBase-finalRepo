@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+ <!-- <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" /> -->
+
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Grayscale - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+       
+    </head>
+    <body id="page-top">
+    
+<script>
+</script>
+		 
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container" >
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+                        <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link js-scroll-trigger" th:href="@{/logout}">Logout</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+      
+      <!-- Masthead-->
+        
+        <header class="masthead">
+        <p style="color:white; ">
+            Welcome, <span th:text="${username}" ></span>
+            
+        </p>
+            <div class="container d-flex h-100 align-items-center" style="margin-top: -150px;">
+             
+                <div class="mx-auto text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">My Stocks</h1>
+                             <div class="w3-bar w3-black">
+  
+ 
+</div>	
+
+			<div id="Stocks" class="tab">
+				<div class="grid-container"style="background-color: white; " >
+					  <div class="grid-item" style="background-color: white; "><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
+					  <div class="grid-item" style="background-color: white; "><button class="w3-bar-item w3-button" onclick="openTab('Charts')">Charts</button></div>
+					  <div class="grid-item" style="background-color: white; "> <button class="w3-bar-item w3-button" onclick="openTab('Forecasts')">Forecasts</button></div>
+				</div>
+				<table id="myStocksTable"  style="background-color: white; font-size:20px;">
+					  <tr class="header" >
+					   <th style="background-color: white;"><button class="button button2" id="addStock">Add</button></th>
+					    <th style="background-color: white;">Instrument Name</th>
+					     <th style="background-color: white;">Quantity</th>
+					     <th style="background-color: white;">Current Price</th>
+					    <th style="background-color: white;">Avg Price</th>
+					     <th style="background-color: white;">Result</th>
+					    </tr>
+					    <tr th:each="stock: ${userStockData}">
+					    <td ><p style="font-size: 15px; "  th:text="${stock.tickerSymbol}"></p></td>
+					    <td > <p style="font-size: 15px"  th:text="${stock.instrumentName}"></p></td>
+					 	<td > <p style="font-size: 15px"  th:text="${stock.quantity}"></p></td>
+					 	<td ><p style="font-size: 15px; "  th:text="${stock.price}"></p></td>
+					    <td > <p style="font-size: 15px"  th:text="${stock.avgPrice}"></p></td>
+					 	<td > <p class="pnl"  style="font-size: 15px"  th:text="${stock.result}"></p></td>
+					  </tr>
+					  <tr>
+					  	 <th style="background-color: white;"><p style="font-size: 15px; " >Total Invested</p></th> 
+					  	 <th style="background-color: white;"></th>
+					     <th style="background-color: white;"><p style="font-size: 15px; " >Total Market Value</p></th> 
+					     <th style="background-color: white;"><p style="font-size: 15px; " ></p></th>
+					     <th style="background-color: white;"><p style="font-size: 15px; "  >Total Profit/Loss</p></th>
+					     <th style="background-color: white;"><p style="font-size: 15px; " ></p></th>
+					  </tr>
+					  
+					</table>
+					<p style="background-color: white;">Market Value = sum of all holdings current price<br>
+														Total Invested = sum of avg price per stock * quantity for all stocks </p>
+			 </div>
+			 <div id="Charts" class="tab" style="display:none">
+				  <div class="grid-container" >
+          		      <div class="grid-item"><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
+					  <div class="grid-item"><button class="w3-bar-item w3-button" onclick="openTab('Charts')">Charts</button></div>
+					  <div class="grid-item"> <button class="w3-bar-item w3-button" onclick="openTab('Forecasts')">Forecasts</button></div>
+					  <div class="grid-item"></div>  
+					  <div class="grid-item"></div>
+					  <div class="grid-item"></div>  
+                      <div class="grid-item"><button class="button button2">Add</button></div>
+					  <div class="grid-item">Instrument Name</div>
+					  <div class="grid-item">Quantity</div>
+					  <div class="grid-item">Avg. Price</div>  
+					  <div class="grid-item">Current Price</div>
+					  <div class="grid-item">Result</div>  
+					  <div class="grid-item">Tab 2</div>
+					  <div class="grid-item">Tab 2</div>
+					  <div class="grid-item">Tab 2</div>
+					  <div class="grid-item">Tab 2</div>  
+					  <div class="grid-item">Tab 2</div>
+					  <div class="grid-item">Tab 2</div>
+					  <div class="grid-item">Tab 2</div>
+			       </div>
+			 </div>
+					
+			  <div id="Forecasts" class="tab" style="display:none">
+				   <div class="grid-container" >
+          		      <div class="grid-item"><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
+					  <div class="grid-item"><button class="w3-bar-item w3-button" onclick="openTab('Charts')">Charts</button></div>
+					  <div class="grid-item"> <button class="w3-bar-item w3-button" onclick="openTab('')">Forecasts</button></div>
+					  <div class="grid-item"></div>  
+					  <div class="grid-item"></div>
+					  <div class="grid-item"></div>  
+                      <div class="grid-item"><button class="button button2">Add</button></div>
+					  <div class="grid-item">Instrument Name</div>
+					  <div class="grid-item">Quantity</div>
+					  <div class="grid-item">Avg. Price</div>  
+					  <div class="grid-item">Current Price</div>
+					  <div class="grid-item">Result</div>  
+					  <div class="grid-item">Tab 3</div>
+					  <div class="grid-item">Tab 3</div>
+					  <div class="grid-item">Tab 3</div>
+					  <div class="grid-item">Tab 3</div>  
+					  <div class="grid-item">Tab 3</div>
+					  <div class="grid-item">Tab 3</div>
+					  <div class="grid-item">Tab 3</div>
+				   </div>
+			 </div>
+			 
+</div>
+					
+			<div id="addStockModal" class="modal" style="text-align:center; overflow-y: scroll;">
+			
+				<div class="modal-content" style="width: 1000px; height:600px;text-align:center; ">
+					<h5>SELECT INSTRUMENT</h5>	<span class="close" style="position: absolute;  top: 8px;  right: 8px;">&times;</span>
+				  		<input type="text" id="myInputs" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+					<div style=" text-align:center; height: 500px; overflow-y: scroll;">
+					<table id="myTable"  >
+					  <tr class="header" >
+					    <th style="background-color: white;">Ticker Symbol</th>
+					    <th style="background-color: white;">Instrument Name</th>
+					     <th style="background-color: white;">Market Name</th>
+					    </tr>
+					    <tr th:each="stock : ${stockData}">
+					    <td ><p style="font-size: 12px; "  th:text="${stock.instrumentName}"></p></td>
+					    <td > <p style="font-size: 12px"  th:text="${stock.companyName}"></p></td>
+					 	    <td > <p style="font-size: 12px"  th:text="${stock.marketName}"></p></td>
+					  </tr>
+					</table>
+					</div>
+			 </div>
+			 
+			 <div id="addStockModalSecond" class="modal" style="text-align:center; overflow-y: scroll;">
+				
+				<div class="modal-content" style="width: 750px; height:420px;text-align:center; ">
+				 	<div style="width: 700px; height:50px; border-bottom-style: solid; border-bottom-color: gery">
+				 	<p style="font-size: 30px; font-weight:bold;">Add <span id="shares" style="font-size: 30px; font-weight:bold;"></span></p>
+				 	</div>
+					<br>
+					
+					<form action="." method="POST" autocomplete="off" onsubmit="return formInput()">
+					<!--  -->
+					<input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+					<input type="hidden" name="stockInfo" id="spanValue"/>
+					<div id="stockInfo">
+					<h5>No. of shares</h5>	<span class="close2" id="close2" style="position: absolute;  top: 5px;  right: 8px;">&times;</span>
+					<div class="slidecontainer">
+					<p><span id="demo"></span></p>
+					  <input type="range" min="1" max="250" value="50" name="stockInfo" class="slider" id="myRange">
+					 </div> 
+					 <span id="invalidField" style="color:red;"></span>
+					 <br>
+					 <div class="inputFields">
+					    <div class="Price"><h5>Price</h5></div>
+					    <input id="Price"  name="stockInfo" placeholder="0.00" style="width:300px; padding: 8px 20px; margin: 5px 0; box-sizing: border-box; text-align:center;border: none; font-size: 20px; border-bottom: 1px solid grey; outline: none; " />
+					</div>
+					    
+					<div class="inputFields">
+					    <div class="Date" ><h5>Date of Transaction</h5></div>
+					    <input id="Date" name="stockInfo" placeholder="DD/MM/YYYY" style="width:300px; padding: 8px 20px;margin: 5px 0; box-sizing: border-box; text-align:center; border: none;  font-size: 20px; border-bottom: 1px solid grey; outline: none; "/>
+					</div>
+					</div>
+					<button id="cancelAdd" type="submit" style="position: absolute; right:5px; bottom:5px;"class="button button2">SUBMIT</button>
+					</form>
+					<button id="cancelAdd" onclick="closeAdd()" style="position: absolute; right:100px; bottom:5px;"class="button button2">CANCEL</button>
+				  		
+					</div>
+			 </div>
+						 			
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">A free, responsive, one page Bootstrap theme created by Start Bootstrap.</h2>
+                    <a class="btn btn-primary js-scroll-trigger" href="#about">Get Started</a>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Signup-->
+        <section class="signup-section" id="signup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+                        <form class="form-inline d-flex">
+                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" type="email" placeholder="Enter email address..." />
+                            <button class="btn btn-primary mx-auto" type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="contact-section bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Address</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Email</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Phone</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50">+1 (555) 902-8832</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social d-flex justify-content-center">
+                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Your Website 2020</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+    
+    
+    <style>
+    .grid-containers {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  background-color: #d3d3d3;
+  padding: 4px;
+}
+
+.grid-items {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 0px solid rgba(0, 0, 0, 0.8);
+  padding: 8px;
+  font-size: 24px;
+  text-align: center;
+  
+}
+
+
+@media only screen and (max-width: 820px) {
+ .tab{
+   width:250px;
+ }
+ .grid-containers{
+   grid-template-columns: auto auto auto;
+   grid-gap:0px 0px;
+   width: 400px;
+ }
+ .grid-items{
+   width:133px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+@media only screen and (max-width: 450px) {
+ .tab{
+   width:250px;
+ }
+ .grid-containers{
+   grid-template-columns: auto auto;
+   grid-gap:0px 0px;
+   width: 280px;
+ }
+ .grid-items{
+   width:133px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+@media only screen and (max-width: 300px) {
+ .tab{
+   width:250px;
+ }
+ .grid-containers{
+   grid-template-columns: auto ;
+   grid-gap:0px 0px;
+   width: 150px;
+ }
+ .grid-items{
+   width:133px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+@media only screen and (max-width: 160px) {
+ .tab{
+   width:250px;
+ }
+ .grid-containers{
+   grid-template-columns: auto ;
+   grid-gap:0px 0px;
+   width: 80px;
+ }
+ .grid-items{
+   width:80px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+.grid-container {
+  display: grid;
+  grid-row-gap: 1px;
+  grid-template-columns: auto auto auto auto auto auto;
+  background-color: #d3d3d3;
+  padding: 4px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 0px solid rgba(0, 0, 0, 0.8);
+  padding: 8px;
+  font-size: 24px;
+  text-align: center;
+  
+}
+
+
+@media only screen and (max-width: 820px) {
+ .tab{
+   width:250px;
+ }
+ .grid-container{
+   grid-template-columns: auto auto auto;
+   grid-gap:0px 0px;
+   width: 400px;
+ }
+ .grid-item{
+   width:133px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+@media only screen and (max-width: 450px) {
+ .tab{
+   width:250px;
+ }
+ .grid-container{
+   grid-template-columns: auto auto;
+   grid-gap:0px 0px;
+   width: 280px;
+ }
+ .grid-item{
+   width:133px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+@media only screen and (max-width: 300px) {
+ .tab{
+   width:250px;
+ }
+ .grid-container{
+   grid-template-columns: auto ;
+   grid-gap:0px 0px;
+   width: 150px;
+ }
+ .grid-item{
+   width:133px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+@media only screen and (max-width: 160px) {
+ .tab{
+   width:250px;
+ }
+ .grid-container{
+   grid-template-columns: auto ;
+   grid-gap:0px 0px;
+   width: 80px;
+ }
+ .grid-item{
+   width:80px;
+   height:50px;
+   padding: 8px;
+   font-size: 15px;
+   text-align: center;
+ }
+}
+.button2 {background-color: #008CBA;} /* Blue */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 270px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* The Close Button */
+.close2 {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close2:hover,
+.close2:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
+}
+
+#myInputs {
+  background-image: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 30px;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+#myTable {
+ width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+   
+    overflow: scroll;
+}
+
+#myTable th, #myTable td {
+  text-align: center;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+  max-height:20px;
+}
+
+#myStocksTable tr.header, #myTable tr:hover {
+  background-color: #D0D0D0;
+}
+* {
+  box-sizing: border-box;
+}
+#myStocksTable {
+ width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+   
+    overflow: scroll;
+}
+
+#myStocksTable th, #myStocksTable td {
+  text-align: center;
+  padding: 12px;
+}
+
+#myStocksTable tr {
+  border-bottom: 1px solid #ddd;
+  max-height:20px;
+}
+
+#myStocksTable tr.header, #myStocksTable tr:hover {
+  background-color: #D0D0D0;
+}
+* {
+  box-sizing: border-box;
+}
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #000099;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+.inputFields{
+    width: 50%;
+    float: left;
+    padding: 10px;
+  }
+
+</style>
+
+
+
+<script>
+var pnl = document.getElementsByClassName('pnl');
+console.log("PNL: " + pnl);
+
+for (var i = 0; i < pnl.length; i++) {
+	if(pnl[i].innerHTML.indexOf("-") != -1){
+		pnl[i].style = "color: red; font-size:15px; font-weight:bold;";
+	}else{
+		pnl[i].style = "color: #32CD32; font-size:15px; font-weight:bold;";
+	}
+    
+}
+
+//function to move to selected tab
+function openTab(tabName) {
+  var i;
+  var x = document.getElementsByClassName("tab");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  document.getElementById(tabName).style.display = "block";  
+}
+
+//Modal Code
+var modal = document.getElementById("addStockModal");
+var btn = document.getElementById("addStock");
+var span = document.getElementsByClassName("close")[0];
+var span2 = document.getElementsByClassName("close2")[0];
+var modal2 = document.getElementById("addStockModalSecond");
+
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+span.onclick = function() {
+  modal.style.display = "none";
+}
+span2.onclick = function() {
+	  modal2.style.display = "none";
+	}
+
+
+function closeAdd(){
+	 modal2.style.display = "none";
+	 modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal2.style.display = "none";
+	  }
+	}
+    function myFunction() {
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById("myInputs");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("myTable");
+		  tr = table.getElementsByTagName("tr");
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName("td")[0];
+		    if (td) {
+		      txtValue = td.textContent || td.innerText;
+		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+		        tr[i].style.display = "";
+		      } else {
+		        tr[i].style.display = "none";
+		      }
+		    }       
+		  }
+		  
+		  
+		  
+		}  
+
+  //Function to make the table rows clickable
+    function tableRowAdd() {
+        var table = document.getElementById("myTable");
+        var rows = table.getElementsByTagName("tr");
+        
+        
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickHandler = 
+                function(row) 
+                {
+                  return function() { 
+                   var cell = row.getElementsByTagName("td")[0];
+                   var id = cell.innerHTML;
+                   var output = document.getElementById("shares");
+                   output.innerHTML =jQuery(id).text();
+                   var modal = document.getElementById("addStockModalSecond");
+                   modal.style.display = "block";
+                   var copyValue;
+                   var close2 = document.getElementById("shares").innerHTML;
+                   document.getElementById("spanValue").value = close2;
+                   };
+			};
+		currentRow.onclick = createClickHandler(currentRow);
+	   }
+    }
+  window.onload = tableRowAdd();
+  
+  var slider = document.getElementById("myRange");
+  var output = document.getElementById("demo");
+  output.innerHTML = slider.value;
+
+  slider.oninput = function() {
+    output.innerHTML = this.value;
+  }
+  
+/**
+ * Form Validation
+ */
+ function formInput(){
+	 var x = document.getElementById("Price").value;
+	 var y = document.getElementById("Date").value;
+	 if (x == "" || x == null) {
+	    document.getElementById("invalidField").innerHTML = "Please populate the price field before submitting.";
+	    return false;
+	  }
+	 if (y == "" || y == null) {
+		    document.getElementById("invalidField").innerHTML = "Please populate the date field before submitting.";
+		    return false;
+		  }
+	 
+	
+}
+</script>
+</html>
