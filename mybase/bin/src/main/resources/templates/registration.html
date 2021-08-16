@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	 <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+	
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Grayscale - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+       
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+         <header class="masthead">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="mx-auto text-center">
+                    <h1 class="mx-auto my-0 " style="font-size: 75px;">Register</h1>
+                      <div th:if="${param.success}">
+                    <div class="alert alert-info">You've successfully registered to our awesome app!</div>
+                </div>
+ 
+                <form th:action="@{/registration}" th:object="${user}" method="post">
+
+                    <p class="error-message" th:if="${#fields.hasGlobalErrors()}" th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation error
+                    </p>
+
+                    <div class="form-group" th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
+                        <label for="firstName" class="control-label" style="font-weight: bold; color: White;">First name</label> <input id="firstName" class="form-control" th:field="*{firstName}" />
+                        <p class="error-message" th:each="error: ${#fields.errors('firstName')}" th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
+                        <label for="lastName" class="control-label" style="color: White; font-weight: bold;">Last name</label> <input id="lastName" class="form-control" th:field="*{lastName}" />
+                        <p class="error-message" th:each="error : ${#fields.errors('lastName')}" th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+                        <label for="email" class="control-label" style="font-weight: bold; color: White;">E-mail</label> <input id="email" class="form-control" th:field="*{email}" />
+                        <p class="error-message" th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation error
+                        </p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('confirmEmail')}? 'has-error':''">
+                        <label for="confirmEmail" style="font-weight: bold; color: White;" class="control-label">Confirm
+       e-mail</label> <input id="confirmEmail" class="form-control" th:field="*{confirmEmail}" />
+                        <p class="error-message" th:each="error : ${#fields.errors('confirmEmail')}" th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                        <label for="password" style="font-weight: bold; color: White;" class="control-label">Password</label> <input id="password" class="form-control" type="password" th:field="*{password}" />
+                        <p class="error-message" th:each="error : ${#fields.errors('password')}" th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
+                        <label for="confirmPassword"  style="font-weight: bold; color: White;"class="control-label">Confirm
+       password</label> <input id="confirmPassword" class="form-control" type="password" th:field="*{confirmPassword}" />
+                        <p class="error-message" th:each="error : ${#fields.errors('confirmPassword')}" th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="form-group" th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
+                        <input id="terms" type="checkbox" th:field="*{terms}" /> <label class="control-label"   style="font-weight: bold; color: White;" for="terms"> I agree with the <a
+       href="#">terms and conditions</a> for Registration.
+      </label>
+                        <p class="error-message" th:each="error : ${#fields.errors('terms')}" th:text="${error}">Validation error
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Register</button><br> </br>
+                        <span  style=" color: White;">Already registered? <a href="/" th:href="@{/login}">Login
+        here</a></span>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+   
+        </header>
+       
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+        <!-- Footer-->
+        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Your Website 2020</div></footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
