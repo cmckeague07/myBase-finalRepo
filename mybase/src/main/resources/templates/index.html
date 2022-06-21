@@ -60,18 +60,18 @@
  
 </div>	
 
-			<div id="Stocks" class="tab" style="width: 900px; height:700px;">
+			<div id="Stocks" class="tab" style="width: 700px; height:450px;">
 			<div><canvas  id="myChart" style="background-color: white; " ></canvas> </div>
 				<div class="grid-container" style="background-color: white; "  >
 						
 								
-					 	<div class="grid-item" style="background-color: white; "><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
-					  <div class="grid-item" style="background-color: white; "><button class="w3-bar-item w3-button" onclick="openTab('Charts')">Charts</button></div>
-					  <div class="grid-item" style="background-color: white; "> <button class="w3-bar-item w3-button" onclick="openTab('Forecasts')">Forecasts</button></div>
+					 	<div class="grid-item" style="background-color: white; font-size:12px; "><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
+					  <div class="grid-item" style="background-color: white; font-size:12px; "><button class="w3-bar-item w3-button" onclick="openTab('Charts')">Charts</button></div>
+					  <div class="grid-item" style="background-color: white; font-size:12px; "> <button class="w3-bar-item w3-button" onclick="openTab('Forecasts')">Forecasts</button></div>
 			</div>
 			
-			<div style="overflow-y: scroll; height:340px;">
-				<table id="myStocksTable"  style="background-color: white; font-size:20px; overflow: scroll;">
+			<div style="overflow-y: scroll; height:210px;">
+				<table id="myStocksTable"  style="background-color: white; font-size:12px; overflow: scroll;">
 					  <tr class="header" >
 					   <th style="background-color: white;"><button class="button button2" style="color:white;"  id="addStock">Add</button></th>
 					    <th style="background-color: white;">Instrument Name</th>
@@ -83,42 +83,43 @@
 				    
 					    <tr th:each="stock: ${userStockData}">
 					    
-					    <td ><ul style="height: 29px; width: 28px;  float: left; margin-left:-25px;"><li class="ele">
+					    <td ><ul style="height: 0px; width: 0px;  float: left; margin-left:-25px;"><li class="ele">
   								<i><button style="  background-color: Transparent;
 												    background-repeat:no-repeat;
 												    border: none;
 												    cursor:pointer;
 												    overflow: hidden;
-												    outline:none;"
+												    outline:none;
+												    margin-bottom:2px;"
   								                    name="deleteStock" onclick="deleteStockClicked(this)"  
-  								                    id="deleteStock"><div style="height: 29px; width: 28px; float: left;"class="x spin small slow">&#x2715</div>
-  								                    <p th:text="${stock.tickerSymbol}" style="visibility: hidden;"></p></button></i>  
+  								                    id="deleteStock"><div style="height: 20px; width: 20px; float: left;"class="x spin small slow">&#x2715</div>
+  								                    <p th:text="${stock.tickerSymbol}" style="visibility: hidden; height:0px;"></p></button></i>  
 	 							  </li></ul> 
-	 							 <em style="font-size: 15px; " id="tickerSymbol" th:text="${stock.tickerSymbol}"></em> 
+	 							 <em style="font-size: 12px; " id="tickerSymbol" th:text="${stock.tickerSymbol}"></em> 
 	 				    </td>
-					    <td > <p style="font-size: 15px"  th:text="${stock.instrumentName}"></p></td>
-					 	<td > <p style="font-size: 15px"  th:text="${stock.quantity}"></p></td>
-					 	<td ><p style="font-size: 15px; "  th:text="${stock.price}"></p></td>
-					    <td > <p style="font-size: 15px"  th:text="${stock.avgPrice}"></p></td>
-					 	<td > <p class="pnl"  style="font-size: 15px"  th:text="${stock.result}"></p></td>
+					    <td > <p style="font-size: 12px"  th:text="${stock.instrumentName}"></p></td>
+					 	<td > <p style="font-size: 12px"  th:text="${stock.quantity}"></p></td>
+					 	<td ><p style="font-size: 12px; "  th:text="${stock.price}"></p></td>
+					    <td > <p style="font-size: 12px"  th:text="${stock.avgPrice}"></p></td>
+					 	<td > <p class="pnl"  style="font-size: 12px"  th:text="${stock.result}"></p></td>
 					  </tr>
 					  </table>
 					  </div>
 					  
-					  <table id="myStocksTable"  style="background-color: white; font-size:20px; overflow: scroll;">
+					  <table id="myStocksTable"  style="background-color: white; font-size:12px; overflow: scroll;">
 					  <tr>
-					  	 <th style="background-color: white;"><p style="font-size: 15px; " >Total Invested</p></th> 
-					  	 <th style="background-color: white;"><p th:text="${totalInvested}" style="font-size: 15px; " ></p></th>
-					     <th style="background-color: white;"><p style="font-size: 15px; " >Total Market Value</p></th> 
-					     <th style="background-color: white;"><p th:text="${marketValue}"  style="font-size: 15px; " ></p></th>
-					     <th style="background-color: white;"><p style="font-size: 15px; "  >Total Profit/Loss</p></th>
-					     <th style="background-color: white;"><p class="pnltotal" th:text="${profitLoss}"  style="font-size: 15px; " ></p></th>
+					  	 <th style="background-color: white;"><p style="font-size: 12px; " >Total Invested</p></th> 
+					  	 <th style="background-color: white;"><p th:text="${totalInvested}" style="font-size: 12px; " ></p></th>
+					     <th style="background-color: white;"><p style="font-size: 12px; " >Total Market Value</p></th> 
+					     <th style="background-color: white;"><p th:text="${marketValue}"  style="font-size: 12px; " ></p></th>
+					     <th style="background-color: white;"><p style="font-size: 12px; "  >Total Profit/Loss</p></th>
+					     <th style="background-color: white;"><p class="pnltotal" th:text="${profitLoss}"  style="font-size: 12px; " ></p></th>
 					  </tr>
 					  
 					</table>
-					<p style="background-color: white;">Market Value = sum of all holdings current price<br>
+					<p style="background-color: white; font-size: 12px">Market Value = sum of all holdings current price<br>
 														Total Invested = sum of avg price per stock * quantity for all stocks </p>
-			 </div>
+			 </div><br>
 			 <div id="Charts" class="tab" style="display:none">
 				  <div class="grid-container" >
           		      <div class="grid-item"><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
@@ -590,10 +591,8 @@ var myChart = new Chart(ctx, {
 }
 #myTable {
  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-   
-    overflow: scroll;
+ border: 1px solid #ddd;
+ overflow: scroll;
 }
 
 #myTable th, #myTable td {
@@ -636,14 +635,24 @@ tr:hover em {
  
 }
 
+#myStocksTable p {
+  height: 0px;
+  font-size: 12px;
+}
+
 #myStocksTable th, #myStocksTable td {
   text-align: center;
-  padding: 12px;
+  padding: 10px;
 }
 
 #myStocksTable tr {
   border-bottom: 1px solid #ddd;
   max-height:20px;
+}
+
+#myStocksTable td {
+  border-bottom: 1px solid #ddd;
+  height:20px;
 }
 
 #myStocksTable tr.header, #myStocksTable tr:hover {
@@ -809,9 +818,9 @@ for (var i = 0; i < isHolding.length; i++) {
 var pnl = document.getElementsByClassName('pnl');
 for (var i = 0; i < pnl.length; i++) {
 	if(pnl[i].innerHTML.indexOf("-") != -1){
-		pnl[i].style = "color: red; font-size:15px; font-weight:bold;";
+		pnl[i].style = "color: red; font-size:12px; font-weight:bold;";
 	}else{
-		pnl[i].style = "color: #32CD32; font-size:15px; font-weight:bold;";
+		pnl[i].style = "color: #32CD32; font-size:12px; font-weight:bold;";
 	}
      
 }
@@ -819,9 +828,9 @@ var pnltotal = document.getElementsByClassName('pnltotal');
 for (var i = 0; i < pnltotal.length; i++) {
 	
 	if(pnltotal[i].innerHTML.indexOf("-") != -1){
-		pnltotal[i].style = "color: red; font-size:15px; font-weight:bold;";
+		pnltotal[i].style = "color: red; font-size:12px; font-weight:bold;";
 	}else{
-		pnltotal[i].style = "color: #32CD32; font-size:15px; font-weight:bold;";
+		pnltotal[i].style = "color: #32CD32; font-size:12px; font-weight:bold;";
 	}
    
 }
