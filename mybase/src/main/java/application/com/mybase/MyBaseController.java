@@ -175,7 +175,8 @@ public class MyBaseController {
 				if(stockRequest == null) {
 					System.out.println("This value is null in the userstockdata table: " + rs.getString(4));
 					//unsupportedStocks.add(rs.getString(4));
-					
+					userStockData stock = new userStockData(rs.getString(3),rs.getString(4),rs.getString(5), "Unsupported", rs.getString(6), rs.getString(7));
+					userStockData.add(stock);
 				}else {
 					/*  This this is the version you need to do in the instance that the stock market quotes are not available:
 					 *  - StockQuote price = stockRequest.getQuote(false);
