@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Grayscale - Start Bootstrap Theme</title>
+        <title>MyBase portfolio manager</title>
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
@@ -28,7 +28,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container" >
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">MyBase</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -54,44 +54,65 @@
             <div class="container d-flex h-100 align-items-center" style="margin-top: -150px;">
              
                 <div class="mx-auto text-center">
-                   <h3> My Stock Portfolio</h3>
+                   <h3 style="color:white;"> My Stock Portfolio</h3>
                              <div class="w3-bar w3-black">
   
  
 </div>	
 
-			<div id="Stocks" class="tab">
-				<div class="grid-container"style="background-color: white; " >
-						<div><canvas  id="myChart"></canvas> </div>
+			<div id="Stocks" class="tab" style="width: 900px; height:700px;">
+			<div><canvas  id="myChart" style="background-color: white; " ></canvas> </div>
+				<div class="grid-container" style="background-color: white; "  >
+						
 								
-					<!--  	<div class="grid-item" style="background-color: white; "><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
+					 	<div class="grid-item" style="background-color: white; "><button class="w3-bar-item w3-button" onclick="openTab('Stocks')">Stocks</button></div>
 					  <div class="grid-item" style="background-color: white; "><button class="w3-bar-item w3-button" onclick="openTab('Charts')">Charts</button></div>
-					  <div class="grid-item" style="background-color: white; "> <button class="w3-bar-item w3-button" onclick="openTab('Forecasts')">Forecasts</button></div> -->
+					  <div class="grid-item" style="background-color: white; "> <button class="w3-bar-item w3-button" onclick="openTab('Forecasts')">Forecasts</button></div>
 			</div>
-				<table id="myStocksTable"  style="background-color: white; font-size:20px;">
+			
+			<div style="overflow-y: scroll; height:340px;">
+				<table id="myStocksTable"  style="background-color: white; font-size:20px; overflow: scroll;">
 					  <tr class="header" >
-					   <th style="background-color: white;"><button class="button button2" id="addStock">Add</button></th>
+					   <th style="background-color: white;"><button class="button button2" style="color:white;"  id="addStock">Add</button></th>
 					    <th style="background-color: white;">Instrument Name</th>
 					     <th style="background-color: white;">Quantity</th>
 					     <th style="background-color: white;">Current Price</th>
 					    <th style="background-color: white;">Avg Price</th>
 					     <th style="background-color: white;">Result</th>
 					    </tr>
+				    
 					    <tr th:each="stock: ${userStockData}">
-					    <td ><p style="font-size: 15px; "  th:text="${stock.tickerSymbol}"></p></td>
+					    
+					    <td ><ul style="height: 29px; width: 28px;  float: left; margin-left:-25px;"><li class="ele">
+  								<i><button style="  background-color: Transparent;
+												    background-repeat:no-repeat;
+												    border: none;
+												    cursor:pointer;
+												    overflow: hidden;
+												    outline:none;"
+  								                    name="deleteStock" onclick="deleteStockClicked(this)"  
+  								                    id="deleteStock"><div style="height: 29px; width: 28px; float: left;"class="x spin small slow">&#x2715</div>
+  								                    <p th:text="${stock.tickerSymbol}" style="visibility: hidden;"></p></button></i>  
+	 							  </li></ul> 
+	 							 <em style="font-size: 15px; " id="tickerSymbol" th:text="${stock.tickerSymbol}"></em> 
+	 				    </td>
 					    <td > <p style="font-size: 15px"  th:text="${stock.instrumentName}"></p></td>
 					 	<td > <p style="font-size: 15px"  th:text="${stock.quantity}"></p></td>
 					 	<td ><p style="font-size: 15px; "  th:text="${stock.price}"></p></td>
 					    <td > <p style="font-size: 15px"  th:text="${stock.avgPrice}"></p></td>
 					 	<td > <p class="pnl"  style="font-size: 15px"  th:text="${stock.result}"></p></td>
 					  </tr>
+					  </table>
+					  </div>
+					  
+					  <table id="myStocksTable"  style="background-color: white; font-size:20px; overflow: scroll;">
 					  <tr>
 					  	 <th style="background-color: white;"><p style="font-size: 15px; " >Total Invested</p></th> 
 					  	 <th style="background-color: white;"><p th:text="${totalInvested}" style="font-size: 15px; " ></p></th>
 					     <th style="background-color: white;"><p style="font-size: 15px; " >Total Market Value</p></th> 
 					     <th style="background-color: white;"><p th:text="${marketValue}"  style="font-size: 15px; " ></p></th>
 					     <th style="background-color: white;"><p style="font-size: 15px; "  >Total Profit/Loss</p></th>
-					     <th style="background-color: white;"><p th:text="${profitLoss}"  style="font-size: 15px; " ></p></th>
+					     <th style="background-color: white;"><p class="pnltotal" th:text="${profitLoss}"  style="font-size: 15px; " ></p></th>
 					  </tr>
 					  
 					</table>
@@ -148,6 +169,16 @@
 			 
 </div>
 
+<div id="deleteStockModal" class="modal" style="text-align:center; overflow-y: scroll;">
+			<div class="modal-content" style="width: 1000px; height:600px;text-align:center; ">
+				<p style="font-size: 30px; font-weight:bold;">Delete<span id="deleteshares" style="font-size: 30px; font-weight:bold;"></span></p>
+					<span class="closedeleteStock" style="position: absolute;  top: 8px;  right: 8px;">&times;</span>
+				  		
+					</div>
+				
+		</div>
+
+
 <div id="discountedStockModal"  class="modal" style="text-align:center; overflow-y: scroll;">
 				
 				<div class="modal-content" style="width: 750px; height:420px;text-align:center; ">
@@ -169,6 +200,7 @@
     </div>
 </div>
 					
+				
 			<div id="addStockModal" class="modal" style="text-align:center; overflow-y: scroll;">
 			
 				<div class="modal-content" style="width: 1000px; height:600px;text-align:center; ">
@@ -522,6 +554,21 @@ var myChart = new Chart(ctx, {
   text-decoration: none;
   cursor: pointer;
 }
+
+* The Close Button */
+.closedeleteStock {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closedeleteStock:hover,
+.closedeleteStock:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 .wordwrap { 
    white-space: pre-wrap;      /* CSS3 */   
    white-space: -moz-pre-wrap; /* Firefox */    
@@ -561,16 +608,32 @@ var myChart = new Chart(ctx, {
 
 #myStocksTable tr.header, #myTable tr:hover {
   background-color: #D0D0D0;
+  overflow-y: auto;
+}
+
+i {
+  display: none;
+}
+
+tr:hover i {
+  display: block;
+  
+}
+ 
+tr:hover em {
+  display: none;
 }
 * {
   box-sizing: border-box;
 }
+
+
 #myStocksTable {
  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-   
-    overflow: scroll;
+ border: 1px solid #ddd;
+ font-size: 18px;
+ overflow: scroll;
+ 
 }
 
 #myStocksTable th, #myStocksTable td {
@@ -649,6 +712,79 @@ var myChart = new Chart(ctx, {
   max-height:20px;
 }
 
+
+
+.ele div.x {
+-webkit-transition-duration:0.5s;
+  transition-duration:0.5s;
+}
+
+.ele div.x.slow {
+-webkit-transition-duration:1s;
+  transition-duration:1s;
+}
+
+
+
+.ele { width:25%;display:inline; }
+.x {
+  float:left;
+  position:relative;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  background:#CCC;
+  border-radius:2px;
+  border:solid 2px #FFF;
+  transition: all .3s ease-out;
+  cursor:pointer;
+}
+
+
+.x.small {
+  width:10px;
+  height:10px;
+}
+
+
+.x.grow {
+  
+}
+
+.x.spin:hover{
+  background:#BB3333;
+  transform: rotate(180deg);
+}
+
+.x b{
+  display:block;
+  position:absolute;
+  height:5;
+  width:5;
+  padding:5;
+  margin:5;
+}
+.x.small b {
+  border:solid 5px rgba(255,255,255,0);
+}
+
+.x b:nth-child(1){
+  border-top-color:#FFF;
+  top:-2px;
+}
+.x b:nth-child(2){
+  border-left-color:#FFF;
+  left:-2px;
+}
+.x b:nth-child(3){
+  border-bottom-color:#FFF;
+  bottom:-2px;
+}
+.x b:nth-child(4){
+  border-right-color:#FFF;
+  right:-2px;
+}
+
 </style>
 
 
@@ -669,6 +805,7 @@ for (var i = 0; i < isHolding.length; i++) {
  
 }
 
+//RChange text color to Red/Green depending on PNL value. 
 var pnl = document.getElementsByClassName('pnl');
 for (var i = 0; i < pnl.length; i++) {
 	if(pnl[i].innerHTML.indexOf("-") != -1){
@@ -677,6 +814,16 @@ for (var i = 0; i < pnl.length; i++) {
 		pnl[i].style = "color: #32CD32; font-size:15px; font-weight:bold;";
 	}
     
+}
+var pnltotal = document.getElementsByClassName('pnltotal'); 
+for (var i = 0; i < pnltotal.length; i++) {
+	
+	if(pnltotal[i].innerHTML.indexOf("-") != -1){
+		pnltotal[i].style = "color: red; font-size:15px; font-weight:bold;";
+	}else{
+		pnltotal[i].style = "color: #32CD32; font-size:15px; font-weight:bold;";
+	}
+   
 }
 
 //function to move to selected tab
@@ -689,28 +836,46 @@ function openTab(tabName) {
   document.getElementById(tabName).style.display = "block";  
 }
 
+//Delete Stock modal 
+var deletemodal = document.getElementById("deleteStockModal");
+var deletebtn = document.getElementById("deleteStock");
+function deleteStockClicked(element){
+	deletemodal.style.display = "block";
+	var ticker = jQuery(element).text().trim();
+	var ticker2 = ticker.substring(2).trim();
+	console.log(ticker2);
+}
+
+	
 //Modal Code
 var modal = document.getElementById("addStockModal");
 var btn = document.getElementById("addStock");
 var span = document.getElementsByClassName("close")[0];
 var span2 = document.getElementsByClassName("close2")[0];
 var modal2 = document.getElementById("addStockModalSecond");
-
 var span3 = document.getElementsByClassName("closeWarning")[0];
+var span4 = document.getElementsByClassName("closedeleteStock")[0];
 
 btn.onclick = function() {
   modal.style.display = "block";
 }
+
 span.onclick = function() {
   modal.style.display = "none";
 }
+
 span2.onclick = function() {
 	  modal2.style.display = "none";
-	}
+}
 
 span3.onclick = function() {
 	  modald.style.display = "none";
-	}
+}
+
+span4.onclick = function() {
+	  deletemodal.style.display = "none";
+}
+
 function closeAdd(){
 	 modal2.style.display = "none";
 	 modal.style.display = "none";
@@ -725,6 +890,7 @@ window.onclick = function(event) {
 	    modal2.style.display = "none";
 	  }
 	}
+	//Filtering add stock display
     function myFunction() {
 		  var input, filter, table, tr, td, i, txtValue;
 		  input = document.getElementById("myInputs");
@@ -783,6 +949,7 @@ window.onclick = function(event) {
     output.innerHTML = this.value;
   }
   
+  
 /**
  * Form Validation
  */
@@ -797,10 +964,16 @@ window.onclick = function(event) {
 		    document.getElementById("invalidField").innerHTML = "Please populate the date field before submitting.";
 		    return false;
 		  }
-	 
-	
-}
+  }
 
-
+ 
+ 
+ $(document).ready(function () {
+   $('.x.grow').hover(function () {
+     $(this).hide();
+     $(this).toggleClass('small large');
+     $(this).show();
+   });
+ });
 </script>
 </html>
