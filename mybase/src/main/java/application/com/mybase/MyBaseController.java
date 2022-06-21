@@ -341,7 +341,7 @@ public class MyBaseController {
 		model.addAttribute("profitLoss", format.format(profitLoss));
 		model.addAttribute("marketValue", format.format(mv));
 		model.addAttribute("data", chartData);
-		
+		 
 		//Alert the user if they are holding any discontinued stocks
 		boolean isHoldingDiscontinued = false;
 		try {
